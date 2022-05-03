@@ -13,18 +13,19 @@ var ProductId = 1235118569 //Change this to the product id of the item you want 
 var X_CSRF_TOKEN = Roblox.XsrfToken.getToken() //This is your Roblox X-CSRF-TOKEN request header which is used to authorize the purchase for your account.
 
 fetch("https://economy.roblox.com/v2/user-products/" + ProductId + "/purchase", { //This is the official Roblox API link purchase data is being sent to.
-    body: JSON.stringify( //This is the sent data that determines we are buying it from the Roblox account and that we expect it costs 1 robux, and if it doesn't we won't buy it.
+    method: "POST",
+    credentials: "include",
+    
+    headers: {
+        "Content-Type": "application/json",
+        "x-csrf-token": X_CSRF_TOKEN
+    },
+    
+    body: JSON.stringify( //This is the sent data determining that we are buying it from the Roblox account and that we expect it costs 1 robux, and if it doesn't we won't buy it.
         {
             "expectedCurrency": 1,
             "expectedPrice": 1,
             "expectedSellerId": 1
         }
-    ),
-
-    method: "POST",
-    credentials: "include",
-    headers: {
-        "Content-Type": "application/json",
-        "x-csrf-token": X_CSRF_TOKEN
-    }
+    )
 })
