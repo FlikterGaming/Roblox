@@ -7,11 +7,12 @@
 //It should work shortly, if it doesn't, Roblox fixed this way of purchasing layered clothing items.
 //More info is available in the code below.
 
-//This uses the public economy api Roblox created for users to use. You will not get banned for this because it is an intended feature Roblox added. This will not steal your Roblox account or any associated info.
+//This uses the public economy API Roblox created for users to use. You will not get banned for this because it is an intended feature Roblox added. This will not steal your Roblox account or any associated info.
 
 var ProductId = 1235118569 //Change this to the product id of the item you want to buy. This will remove the amount of robux this item costs from your account.
+var X_CSRF_TOKEN = Roblox.XsrfToken.getToken() //This is your Roblox X-CSRF-TOKEN request header which is used to authorize the purchase for your account.
 
-fetch("https://economy.roblox.com/v2/user-products/" + ProductId + "/purchase", { //This is the official Roblox api link purchase data is being sent to.
+fetch("https://economy.roblox.com/v2/user-products/" + ProductId + "/purchase", { //This is the official Roblox API link purchase data is being sent to.
     body: JSON.stringify( //This is the sent data that determines we are buying it from the Roblox account and that we expect it costs 1 robux, and if it doesn't we won't buy it.
         {
             "expectedCurrency": 1,
@@ -24,6 +25,6 @@ fetch("https://economy.roblox.com/v2/user-products/" + ProductId + "/purchase", 
     credentials: "include",
     headers: {
         "Content-Type": "application/json",
-        "x-csrf-token": Roblox.XsrfToken.getToken() //This is your roblox X-CSRF-TOKEN which is used to authorize the purchase for your account.
+        "x-csrf-token": X_CSRF_TOKEN
     }
 })
